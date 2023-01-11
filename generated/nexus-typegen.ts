@@ -52,6 +52,7 @@ export interface NexusGenObjects {
     isPublished?: string | null; // String
     title?: string | null; // String
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    viewed: number; // Int!
   }
   Query: {};
   User: { // root type
@@ -88,9 +89,11 @@ export interface NexusGenFieldTypes {
     title: string | null; // String
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
     user: NexusGenRootTypes['User'] | null; // User
+    viewed: number; // Int!
   }
   Query: { // field return type
     allUsers: NexusGenRootTypes['User'][]; // [User!]!
+    getAllIsPublishedProjects: NexusGenRootTypes['Project'][]; // [Project!]!
     getAllProjects: NexusGenRootTypes['Project'][]; // [Project!]!
     getAllProjectsByUserId: NexusGenRootTypes['Project'][]; // [Project!]!
     getProjectsById: NexusGenRootTypes['Project']; // Project!
@@ -120,9 +123,11 @@ export interface NexusGenFieldTypeNames {
     title: 'String'
     updatedAt: 'DateTime'
     user: 'User'
+    viewed: 'Int'
   }
   Query: { // field return type name
     allUsers: 'User'
+    getAllIsPublishedProjects: 'Project'
     getAllProjects: 'Project'
     getAllProjectsByUserId: 'Project'
     getProjectsById: 'Project'

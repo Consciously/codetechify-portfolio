@@ -1,4 +1,11 @@
-import { objectType, extendType, nonNull, stringArg, booleanArg } from 'nexus';
+import {
+	objectType,
+	extendType,
+	nonNull,
+	stringArg,
+	booleanArg,
+	arg,
+} from 'nexus';
 
 export const Project = objectType({
 	name: 'Project',
@@ -9,6 +16,7 @@ export const Project = objectType({
 		t.string('isPublished');
 		t.date('createdAt');
 		t.date('updatedAt');
+		t.nonNull.int('viewed');
 		t.nullable.field('user', {
 			type: 'User',
 			resolve: (root, __, ctx) => {
@@ -49,12 +57,35 @@ export const ProjectQuery = extendType({
 				});
 			},
 		});
+		t.nonNull.list.nonNull.field('getAllIsPublishedProjects', {
+			type: 'Project',
+			resolve: (_, __, ctx) => {
+				return ctx.prisma.project.findMany({
+					where: {
+						isPublished: {
+							equals: true,
+						},
+					},
+				});
+			},
+		});
 		t.nonNull.field('getProjectsById', {
 			type: 'Project',
 			args: {
 				projectId: nonNull(stringArg()),
 			},
-			resolve: (_, args, ctx) => {
+			resolve: async (root, args, ctx) => {
+				await ctx.prisma.project.update({
+					where: {
+						id: args.projectId,
+					},
+					data: {
+						viewed: {
+							increment: 1,
+						},
+					},
+				});
+
 				return ctx.prisma.project.findUnique({
 					where: {
 						id: args.projectId,

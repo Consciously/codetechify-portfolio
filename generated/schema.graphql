@@ -25,10 +25,12 @@ type Project {
   title: String
   updatedAt: DateTime
   user: User
+  viewed: Int!
 }
 
 type Query {
   allUsers: [User!]!
+  getAllIsPublishedProjects: [Project!]!
   getAllProjects: [Project!]!
   getAllProjectsByUserId(userId: String!): [Project!]!
   getProjectsById(projectId: String!): Project!
