@@ -9,7 +9,6 @@ export const Project = objectType({
 		t.nullable.field('user', {
 			type: 'User',
 			resolve: (root, __, ctx) => {
-				console.log('Root', root);
 				return ctx.prisma.project
 					.findUnique({
 						where: {
@@ -25,13 +24,13 @@ export const Project = objectType({
 export const ProjectQuery = extendType({
 	type: 'Query',
 	definition: t => {
-		t.nonNull.list.nonNull.field('allProjects', {
+		t.nonNull.list.nonNull.field('getAllProjects', {
 			type: 'Project',
 			resolve: (_, __, ctx) => {
 				return ctx.prisma.project.findMany();
 			},
 		});
-		t.nonNull.list.nonNull.field('allProjectsByUserId', {
+		t.nonNull.list.nonNull.field('getAllProjectsByUserId', {
 			type: 'Project',
 			args: {
 				userId: nonNull(stringArg()),
@@ -42,6 +41,20 @@ export const ProjectQuery = extendType({
 						user: {
 							id: args.userId,
 						},
+					},
+					take: 1,
+				});
+			},
+		});
+		t.nonNull.field('getProjectsByUserId', {
+			type: 'Project',
+			args: {
+				projectId: nonNull(stringArg()),
+			},
+			resolve: (_, args, ctx) => {
+				return ctx.prisma.project.findUnique({
+					where: {
+						id: args.projectId,
 					},
 				});
 			},

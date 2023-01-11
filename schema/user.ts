@@ -27,23 +27,7 @@ export const UserQuery = extendType({
 		t.nonNull.list.nonNull.field('allUsers', {
 			type: 'User',
 			resolve: (_, __, ctx) => {
-				// console.log(args);
 				return ctx.prisma.user.findMany();
-			},
-		});
-		t.nonNull.list.nonNull.field('allProjectsFromUser', {
-			type: 'User',
-			args: {
-				userId: nonNull(stringArg()),
-			},
-			resolve: (_, args, ctx) => {
-				return ctx.prisma.project.findMany({
-					where: {
-						user: {
-							id: args.userId,
-						},
-					},
-				});
 			},
 		});
 	},

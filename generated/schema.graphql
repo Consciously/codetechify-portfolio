@@ -15,10 +15,10 @@ type Project {
 }
 
 type Query {
-  allProjects: [Project!]!
-  allProjectsByUserId(userId: String!): [Project!]!
-  allProjectsFromUser(userId: String!): [User!]!
   allUsers: [User!]!
+  getAllProjects: [Project!]!
+  getAllProjectsByUserId(userId: String!): [Project!]!
+  getProjectsByUserId(projectId: String!): Project!
 }
 
 type User {

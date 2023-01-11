@@ -63,10 +63,10 @@ export interface NexusGenFieldTypes {
     user: NexusGenRootTypes['User'] | null; // User
   }
   Query: { // field return type
-    allProjects: NexusGenRootTypes['Project'][]; // [Project!]!
-    allProjectsByUserId: NexusGenRootTypes['Project'][]; // [Project!]!
-    allProjectsFromUser: NexusGenRootTypes['User'][]; // [User!]!
     allUsers: NexusGenRootTypes['User'][]; // [User!]!
+    getAllProjects: NexusGenRootTypes['Project'][]; // [Project!]!
+    getAllProjectsByUserId: NexusGenRootTypes['Project'][]; // [Project!]!
+    getProjectsByUserId: NexusGenRootTypes['Project']; // Project!
   }
   User: { // field return type
     id: string | null; // String
@@ -87,10 +87,10 @@ export interface NexusGenFieldTypeNames {
     user: 'User'
   }
   Query: { // field return type name
-    allProjects: 'Project'
-    allProjectsByUserId: 'Project'
-    allProjectsFromUser: 'User'
     allUsers: 'User'
+    getAllProjects: 'Project'
+    getAllProjectsByUserId: 'Project'
+    getProjectsByUserId: 'Project'
   }
   User: { // field return type name
     id: 'String'
@@ -114,11 +114,11 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
-    allProjectsByUserId: { // args
+    getAllProjectsByUserId: { // args
       userId: string; // String!
     }
-    allProjectsFromUser: { // args
-      userId: string; // String!
+    getProjectsByUserId: { // args
+      projectId: string; // String!
     }
   }
 }
