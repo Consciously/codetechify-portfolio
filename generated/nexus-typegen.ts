@@ -55,6 +55,10 @@ export interface NexusGenFieldTypes {
   Mutation: { // field return type
     addProject: NexusGenRootTypes['Project'] | null; // Project
     addUser: NexusGenRootTypes['User'] | null; // User
+    deletUserById: NexusGenRootTypes['User'] | null; // User
+    deleteProjectById: NexusGenRootTypes['Project']; // Project!
+    updateProjectById: NexusGenRootTypes['Project'] | null; // Project
+    updateUserById: NexusGenRootTypes['User'] | null; // User
   }
   Project: { // field return type
     description: string | null; // String
@@ -66,7 +70,7 @@ export interface NexusGenFieldTypes {
     allUsers: NexusGenRootTypes['User'][]; // [User!]!
     getAllProjects: NexusGenRootTypes['Project'][]; // [Project!]!
     getAllProjectsByUserId: NexusGenRootTypes['Project'][]; // [Project!]!
-    getProjectsByUserId: NexusGenRootTypes['Project']; // Project!
+    getProjectsById: NexusGenRootTypes['Project']; // Project!
   }
   User: { // field return type
     id: string | null; // String
@@ -79,6 +83,10 @@ export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
     addProject: 'Project'
     addUser: 'User'
+    deletUserById: 'User'
+    deleteProjectById: 'Project'
+    updateProjectById: 'Project'
+    updateUserById: 'User'
   }
   Project: { // field return type name
     description: 'String'
@@ -90,7 +98,7 @@ export interface NexusGenFieldTypeNames {
     allUsers: 'User'
     getAllProjects: 'Project'
     getAllProjectsByUserId: 'Project'
-    getProjectsByUserId: 'Project'
+    getProjectsById: 'Project'
   }
   User: { // field return type name
     id: 'String'
@@ -112,12 +120,30 @@ export interface NexusGenArgTypes {
     addUser: { // args
       name: string; // String!
     }
+    deletUserById: { // args
+      userId: string; // String!
+    }
+    deleteProjectById: { // args
+      projectId: string; // String!
+    }
+    updateProjectById: { // args
+      demoUrl?: string | null; // String
+      description?: string | null; // String
+      imageUrl?: string | null; // String
+      projectId: string; // String!
+      repoUrl?: string | null; // String
+      title?: string | null; // String
+    }
+    updateUserById: { // args
+      name?: string | null; // String
+      userId: string; // String!
+    }
   }
   Query: {
     getAllProjectsByUserId: { // args
       userId: string; // String!
     }
-    getProjectsByUserId: { // args
+    getProjectsById: { // args
       projectId: string; // String!
     }
   }

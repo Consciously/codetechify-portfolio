@@ -49,5 +49,35 @@ export const UserMutation = extendType({
 				});
 			},
 		});
+		t.field('updateUserById', {
+			type: 'User',
+			args: {
+				name: stringArg(),
+				userId: nonNull(stringArg()),
+			},
+			resolve: (_, args, ctx) => {
+				return ctx.prisma.user.update({
+					where: {
+						id: args.userId,
+					},
+					data: {
+						name: args.name,
+					},
+				});
+			},
+		});
+		t.field('deletUserById', {
+			type: 'User',
+			args: {
+				userId: nonNull(stringArg()),
+			},
+			resolve: (_, args, ctx) => {
+				return ctx.prisma.user.delete({
+					where: {
+						id: args.userId,
+					},
+				});
+			},
+		});
 	},
 });

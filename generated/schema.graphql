@@ -5,6 +5,10 @@
 type Mutation {
   addProject(demoUrl: String!, description: String!, imageUrl: String!, repoUrl: String!, title: String!, userId: String!): Project
   addUser(name: String!): User
+  deletUserById(userId: String!): User
+  deleteProjectById(projectId: String!): Project!
+  updateProjectById(demoUrl: String, description: String, imageUrl: String, projectId: String!, repoUrl: String, title: String): Project
+  updateUserById(name: String, userId: String!): User
 }
 
 type Project {
@@ -18,7 +22,7 @@ type Query {
   allUsers: [User!]!
   getAllProjects: [Project!]!
   getAllProjectsByUserId(userId: String!): [Project!]!
-  getProjectsByUserId(projectId: String!): Project!
+  getProjectsById(projectId: String!): Project!
 }
 
 type User {

@@ -46,7 +46,7 @@ export const ProjectQuery = extendType({
 				});
 			},
 		});
-		t.nonNull.field('getProjectsByUserId', {
+		t.nonNull.field('getProjectsById', {
 			type: 'Project',
 			args: {
 				projectId: nonNull(stringArg()),
@@ -88,6 +88,44 @@ export const ProjectMutation = extendType({
 								id: args.userId,
 							},
 						},
+					},
+				});
+			},
+		});
+		t.field('updateProjectById', {
+			type: 'Project',
+			args: {
+				title: stringArg(),
+				description: stringArg(),
+				demoUrl: stringArg(),
+				repoUrl: stringArg(),
+				imageUrl: stringArg(),
+				projectId: nonNull(stringArg()),
+			},
+			resolve: (_, args, ctx) => {
+				return ctx.prisma.project.update({
+					where: {
+						id: args.projectId,
+					},
+					data: {
+						title: args.title,
+						description: args.description,
+						demoUrl: args.demoUrl,
+						repoUrl: args.repoUrl,
+						imageUrl: args.imageUrl,
+					},
+				});
+			},
+		});
+		t.nonNull.field('deleteProjectById', {
+			type: 'Project',
+			args: {
+				projectId: nonNull(stringArg()),
+			},
+			resolve: (_, args, ctx) => {
+				return ctx.prisma.project.delete({
+					where: {
+						id: args.projectId,
 					},
 				});
 			},
