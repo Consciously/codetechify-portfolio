@@ -1,4 +1,4 @@
-import { objectType, extendType, nonNull, stringArg } from 'nexus';
+import { objectType, extendType, nonNull, stringArg, booleanArg } from 'nexus';
 
 export const Project = objectType({
 	name: 'Project',
@@ -6,6 +6,9 @@ export const Project = objectType({
 		t.string('id');
 		t.string('title');
 		t.string('description');
+		t.string('isPublished');
+		t.date('createdAt');
+		t.date('updatedAt');
 		t.nullable.field('user', {
 			type: 'User',
 			resolve: (root, __, ctx) => {
@@ -126,6 +129,23 @@ export const ProjectMutation = extendType({
 				return ctx.prisma.project.delete({
 					where: {
 						id: args.projectId,
+					},
+				});
+			},
+		});
+		t.nonNull.field('changeIsPublish', {
+			type: 'Project',
+			args: {
+				isPublished: booleanArg(),
+				projectId: nonNull(stringArg()),
+			},
+			resolve: (_, args, ctx) => {
+				return ctx.prisma.project.update({
+					where: {
+						id: args.projectId,
+					},
+					data: {
+						isPublished: args.isPublished,
 					},
 				});
 			},

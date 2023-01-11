@@ -5,8 +5,23 @@
 
 
 import type { Context } from "./../lib/context"
-
-
+import type { core } from "nexus"
+declare global {
+  interface NexusGenCustomInputMethods<TypeName extends string> {
+    /**
+     * A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+     */
+    date<FieldName extends string>(fieldName: FieldName, opts?: core.CommonInputFieldConfig<TypeName, FieldName>): void // "DateTime";
+  }
+}
+declare global {
+  interface NexusGenCustomOutputMethods<TypeName extends string> {
+    /**
+     * A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+     */
+    date<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "DateTime";
+  }
+}
 
 
 declare global {
@@ -25,14 +40,18 @@ export interface NexusGenScalars {
   Float: number
   Boolean: boolean
   ID: string
+  DateTime: Date
 }
 
 export interface NexusGenObjects {
   Mutation: {};
   Project: { // root type
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
     description?: string | null; // String
     id?: string | null; // String
+    isPublished?: string | null; // String
     title?: string | null; // String
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
   Query: {};
   User: { // root type
@@ -55,15 +74,19 @@ export interface NexusGenFieldTypes {
   Mutation: { // field return type
     addProject: NexusGenRootTypes['Project'] | null; // Project
     addUser: NexusGenRootTypes['User'] | null; // User
+    changeIsPublish: NexusGenRootTypes['Project']; // Project!
     deletUserById: NexusGenRootTypes['User'] | null; // User
     deleteProjectById: NexusGenRootTypes['Project']; // Project!
     updateProjectById: NexusGenRootTypes['Project'] | null; // Project
     updateUserById: NexusGenRootTypes['User'] | null; // User
   }
   Project: { // field return type
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
     description: string | null; // String
     id: string | null; // String
+    isPublished: string | null; // String
     title: string | null; // String
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
     user: NexusGenRootTypes['User'] | null; // User
   }
   Query: { // field return type
@@ -83,15 +106,19 @@ export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
     addProject: 'Project'
     addUser: 'User'
+    changeIsPublish: 'Project'
     deletUserById: 'User'
     deleteProjectById: 'Project'
     updateProjectById: 'Project'
     updateUserById: 'User'
   }
   Project: { // field return type name
+    createdAt: 'DateTime'
     description: 'String'
     id: 'String'
+    isPublished: 'String'
     title: 'String'
+    updatedAt: 'DateTime'
     user: 'User'
   }
   Query: { // field return type name
@@ -119,6 +146,10 @@ export interface NexusGenArgTypes {
     }
     addUser: { // args
       name: string; // String!
+    }
+    changeIsPublish: { // args
+      isPublished?: boolean | null; // Boolean
+      projectId: string; // String!
     }
     deletUserById: { // args
       userId: string; // String!

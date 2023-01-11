@@ -2,9 +2,15 @@
 ### Do not make changes to this file directly
 
 
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar DateTime
+
 type Mutation {
   addProject(demoUrl: String!, description: String!, imageUrl: String!, repoUrl: String!, title: String!, userId: String!): Project
   addUser(name: String!): User
+  changeIsPublish(isPublished: Boolean, projectId: String!): Project!
   deletUserById(userId: String!): User
   deleteProjectById(projectId: String!): Project!
   updateProjectById(demoUrl: String, description: String, imageUrl: String, projectId: String!, repoUrl: String, title: String): Project
@@ -12,9 +18,12 @@ type Mutation {
 }
 
 type Project {
+  createdAt: DateTime
   description: String
   id: String
+  isPublished: String
   title: String
+  updatedAt: DateTime
   user: User
 }
 
