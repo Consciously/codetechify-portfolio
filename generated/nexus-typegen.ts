@@ -56,6 +56,7 @@ export interface NexusGenObjects {
   }
   Query: {};
   User: { // root type
+    email?: string | null; // String
     id?: string | null; // String
     name?: string | null; // String
   }
@@ -99,6 +100,7 @@ export interface NexusGenFieldTypes {
     getProjectsById: NexusGenRootTypes['Project']; // Project!
   }
   User: { // field return type
+    email: string | null; // String
     id: string | null; // String
     name: string | null; // String
     projects: Array<NexusGenRootTypes['Project'] | null> | null; // [Project]
@@ -133,6 +135,7 @@ export interface NexusGenFieldTypeNames {
     getProjectsById: 'Project'
   }
   User: { // field return type name
+    email: 'String'
     id: 'String'
     name: 'String'
     projects: 'Project'
@@ -150,6 +153,7 @@ export interface NexusGenArgTypes {
       userId: string; // String!
     }
     addUser: { // args
+      email: string; // String!
       name: string; // String!
     }
     changeIsPublish: { // args
@@ -171,6 +175,7 @@ export interface NexusGenArgTypes {
       title?: string | null; // String
     }
     updateUserById: { // args
+      email?: string | null; // String
       name?: string | null; // String
       userId: string; // String!
     }

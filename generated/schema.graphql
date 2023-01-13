@@ -9,12 +9,12 @@ scalar DateTime
 
 type Mutation {
   addProject(demoUrl: String!, description: String!, imageUrl: String!, repoUrl: String!, title: String!, userId: String!): Project
-  addUser(name: String!): User
+  addUser(email: String!, name: String!): User
   changeIsPublish(isPublished: Boolean, projectId: String!): Project!
   deletUserById(userId: String!): User
   deleteProjectById(projectId: String!): Project!
   updateProjectById(demoUrl: String, description: String, imageUrl: String, projectId: String!, repoUrl: String, title: String): Project
-  updateUserById(name: String, userId: String!): User
+  updateUserById(email: String, name: String, userId: String!): User
 }
 
 type Project {
@@ -37,6 +37,7 @@ type Query {
 }
 
 type User {
+  email: String
   id: String
   name: String
   projects: [Project]

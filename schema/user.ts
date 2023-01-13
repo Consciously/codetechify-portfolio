@@ -5,6 +5,7 @@ export const User = objectType({
 	definition: t => {
 		t.string('id');
 		t.string('name');
+		t.string('email');
 		t.nullable.list.field('projects', {
 			type: 'Project',
 			resolve: (root, __, ctx) => {
@@ -40,11 +41,13 @@ export const UserMutation = extendType({
 			type: 'User',
 			args: {
 				name: nonNull(stringArg()),
+				email: nonNull(stringArg()),
 			},
 			resolve: (_, args, ctx) => {
 				return ctx.prisma.user.create({
 					data: {
 						name: args.name,
+						email: args.email,
 					},
 				});
 			},
@@ -53,6 +56,7 @@ export const UserMutation = extendType({
 			type: 'User',
 			args: {
 				name: stringArg(),
+				email: stringArg(),
 				userId: nonNull(stringArg()),
 			},
 			resolve: (_, args, ctx) => {
@@ -62,6 +66,7 @@ export const UserMutation = extendType({
 					},
 					data: {
 						name: args.name,
+						email: args.email,
 					},
 				});
 			},

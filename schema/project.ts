@@ -1,11 +1,4 @@
-import {
-	objectType,
-	extendType,
-	nonNull,
-	stringArg,
-	booleanArg,
-	arg,
-} from 'nexus';
+import { objectType, extendType, nonNull, stringArg, booleanArg } from 'nexus';
 
 export const Project = objectType({
 	name: 'Project',
@@ -59,7 +52,7 @@ export const ProjectQuery = extendType({
 		});
 		t.nonNull.list.nonNull.field('getAllIsPublishedProjects', {
 			type: 'Project',
-			resolve: (_, __, ctx) => {
+			resolve: async (_, __, ctx) => {
 				return ctx.prisma.project.findMany({
 					where: {
 						isPublished: {
