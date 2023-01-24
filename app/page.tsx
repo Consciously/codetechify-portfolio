@@ -1,9 +1,17 @@
-const Home = () => {
+import HeroPage from './hero/page';
+import ServicesPage from './services/page';
+import SkillsPage from './skills/page';
+import ProjectsPage from './projects/page';
+
+const HomePage = () => {
 	return (
-		<div>
-			<h1>This is the home page</h1>
-		</div>
+		<>
+			<HeroPage />
+			<ServicesPage />
+			<SkillsPage />
+			<ProjectsPage />
+		</>
 	);
 };
 
-export default Home;
+export default HomePage;
