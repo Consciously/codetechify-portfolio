@@ -1,8 +1,10 @@
 import { Fragment } from 'react';
 import Link from 'next/link';
-import { navigation } from '../../data';
+import jsonData from '../../data/jsonData.json';
 
 const Navigation = () => {
+	const { navigation } = jsonData;
+
 	return (
 		<nav className='my-4 md:my-0 md:ml-4 flex flex-wrap flex-col md:flex-row md:justify-between w-full md:w-auto'>
 			{navigation.map((navElem, idx) => {

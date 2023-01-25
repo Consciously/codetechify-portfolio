@@ -2,7 +2,7 @@ const HeroPage = () => {
 	return (
 		<section className='hero bg-gray-800 text-white text-center py-16 h-full'>
 			<div className='container mx-auto h-full flex flex-col justify-center items-center'>
-				<h1 className='text-5xl font-medium mb-8 uppercase'>
+				<h1 className='text-5xl font-medium mb-8 uppercase font-monoMajor'>
 					Welcome to Contechify
 				</h1>
 				<div className='flex flex-col lg:flex-row w-full lg:w-1/2'>

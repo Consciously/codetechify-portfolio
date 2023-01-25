@@ -1,0 +1,82 @@
+{
+	"navigation": [
+		{
+			"linkName": "home",
+			"linkUrl": "/"
+		},
+		{
+			"linkName": "services",
+			"linkUrl": "/services"
+		},
+		{
+			"linkName": "skills",
+			"linkUrl": "/skills"
+		},
+		{
+			"linkName": "projects",
+			"linkUrl": "/projects"
+		}
+	],
+	"services": [
+		{
+			"title": "clean code",
+			"text": "We write clean, maintainable and scalable code to ensure the longevity of your project."
+		},
+		{
+			"title": "type safety",
+			"text": "We offer type safety services for your projects using TypeScript, ensuring maintainable, readable and scalable code by catching errors and bugs early on with strict type checking."
+		},
+		{
+			"title": "testing",
+			"text": "We write comprehensive tests to ensure the reliability and stability of your project."
+		},
+		{
+			"title": "latest web technology",
+			"text": "We stay up-to-date with the latest web technologies to ensure that your project is at the cutting edge of the industry."
+		}
+	],
+	"skills": [
+		{
+			"name": "React"
+		},
+		{
+			"name": "Next.js"
+		},
+		{
+			"name": "Node.js"
+		},
+		{
+			"name": "Express"
+		},
+		{
+			"name": "RESTful API"
+		},
+		{
+			"name": "GraphQL"
+		},
+		{
+			"name": "React Query"
+		},
+		{
+			"name": "Redux Toolkit"
+		},
+		{
+			"name": "Prisma"
+		},
+		{
+			"name": "Unit and integration tests"
+		},
+		{
+			"name": "Tailwindcss"
+		},
+		{
+			"name": "CSS/SCSS"
+		},
+		{
+			"name": "HTML"
+		},
+		{
+			"name": "Figma"
+		}
+	]
+}
