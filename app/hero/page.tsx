@@ -1,11 +1,13 @@
+import Image from 'next/image';
 import ContainerUI from '../(components)/UI/containerUI';
+import profilePic from '../../public/images/me.jpg';
 
 const HeroPage = () => {
 	return (
 		<section className='hero bg-gray-800 text-white text-center py-16 h-full'>
 			<ContainerUI isHero={true}>
 				<h1 className='text-5xl font-medium mb-8 uppercase font-monoMajor'>
-					Welcome to Contechify
+					Welcome to Codetechify
 				</h1>
 				<div className='flex flex-col lg:flex-row w-full lg:w-1/2'>
 					<p className='text-lg mt-4 mb-8 w-full lg:w-4/5 order-2'>
@@ -13,11 +15,11 @@ const HeroPage = () => {
 						an expert are dedicated to delivering top-notch solutions to help
 						your business grow and succeed in the digital age.
 					</p>
-					<figure className='mb-4 order-1 w-fit lg:w-1/5 self-center'>
-						<img
+					<figure className='mb-4 order-1 w-fit lg:w-1/4 self-center'>
+						<Image
 							className='w-fit h-auto rounded-md'
-							src='/images/me.jpg'
-							alt='hero image'
+							src={profilePic}
+							alt='Picture of site owner'
 						/>
 					</figure>
 				</div>

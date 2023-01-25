@@ -1,18 +1,19 @@
 import SkillsList from '../(components)/skillsList';
 import ContainerUI from '../(components)/UI/containerUI';
+import FlexColUI from '../(components)/UI/flexColUI';
+import FlexItemsUI from '../(components)/UI/flexItemsUI';
+import H2UI from '../(components)/UI/h2UI';
 
 const SkillsPage = () => {
 	return (
 		<section id='skills' className='isStick skills bg-gray-400 p-4 pb-0'>
 			<ContainerUI isHero={false}>
-				<div className='flex flex-col'>
-					<h2 className='text-4xl uppercase font-medium text-center text-white my-16'>
-						My Skills
-					</h2>
-					<div className='flex flex-wrap border-4 border-orange-600 rounded-xl p-4'>
+				<FlexColUI>
+					<H2UI>My Skills</H2UI>
+					<FlexItemsUI hasBorder={true}>
 						<SkillsList />
-					</div>
-				</div>
+					</FlexItemsUI>
+				</FlexColUI>
 			</ContainerUI>
 		</section>
 	);

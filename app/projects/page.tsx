@@ -1,14 +1,15 @@
 import ContainerUI from '../(components)/UI/containerUI';
+import FlexColUI from '../(components)/UI/flexColUI';
+import FlexItemsUI from '../(components)/UI/flexItemsUI';
+import H2UI from '../(components)/UI/h2UI';
 
 const ProjectsPage = () => {
 	return (
 		<section id='projects' className='isStick projects bg-gray-400 p-4 pb-0'>
 			<ContainerUI isHero={false}>
-				<div className='flex flex-col'>
-					<h2 className='text-4xl uppercase font-medium text-center text-white my-16'>
-						My Projects
-					</h2>
-					<div className='flex flex-wrap justify-center'>
+				<FlexColUI>
+					<H2UI>My Projects</H2UI>
+					<FlexItemsUI hasBorder={false}>
 						<div className='bg-gray-700 hover:bg-orange-600 rounded-lg shadow-md shadow-gray-700 flex flex-col basis-full md:basis-1/2 lg:basis-1/3 xl:basis-1/4 items-center p-4 m-4 transition-colors duration-300 ease-out'>
 							<h3 className='text-2xl font-medium text-center text-white uppercase mb-2'>
 								Project Title
@@ -159,8 +160,8 @@ const ProjectsPage = () => {
 								</a>
 							</div>
 						</div>
-					</div>
-				</div>
+					</FlexItemsUI>
+				</FlexColUI>
 			</ContainerUI>
 		</section>
 	);
