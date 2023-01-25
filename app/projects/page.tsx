@@ -1,7 +1,9 @@
+import ContainerUI from '../(components)/UI/containerUI';
+
 const ProjectsPage = () => {
 	return (
 		<section id='projects' className='isStick projects bg-gray-400 p-4 pb-0'>
-			<div className='container mx-auto'>
+			<ContainerUI isHero={false}>
 				<div className='flex flex-col'>
 					<h2 className='text-4xl uppercase font-medium text-center text-white my-16'>
 						My Projects
@@ -159,7 +161,7 @@ const ProjectsPage = () => {
 						</div>
 					</div>
 				</div>
-			</div>
+			</ContainerUI>
 		</section>
 	);
 };
