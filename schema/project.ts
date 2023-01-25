@@ -1,16 +1,24 @@
-import { objectType, extendType, nonNull, stringArg, booleanArg } from 'nexus';
+import {
+	objectType,
+	extendType,
+	nonNull,
+	stringArg,
+	booleanArg,
+	list,
+	nullable,
+} from 'nexus';
 
 export const Project = objectType({
 	name: 'Project',
 	definition: t => {
-		t.string('id');
-		t.string('title');
-		t.string('description');
-		t.string('isPublished');
-		t.date('createdAt');
-		t.date('updatedAt');
+		t.nonNull.string('id');
+		t.nonNull.string('title');
+		t.nullable.string('description');
+		t.nonNull.string('isPublished');
+		t.nonNull.date('createdAt');
+		t.nonNull.date('updatedAt');
 		t.nonNull.int('viewed');
-		t.nullable.field('user', {
+		t.field('user', {
 			type: 'User',
 			resolve: (root, __, ctx) => {
 				return ctx.prisma.project
@@ -28,14 +36,14 @@ export const Project = objectType({
 export const ProjectQuery = extendType({
 	type: 'Query',
 	definition: t => {
-		t.nonNull.list.nonNull.field('getAllProjects', {
-			type: 'Project',
+		t.field('getAllProjects', {
+			type: nonNull(list(nonNull('Project'))),
 			resolve: (_, __, ctx) => {
 				return ctx.prisma.project.findMany();
 			},
 		});
-		t.nonNull.list.nonNull.field('getAllProjectsByUserId', {
-			type: 'Project',
+		t.field('getAllProjectsByUserId', {
+			type: nonNull(list(nonNull('Project'))),
 			args: {
 				userId: nonNull(stringArg()),
 			},
@@ -50,8 +58,8 @@ export const ProjectQuery = extendType({
 				});
 			},
 		});
-		t.nonNull.list.nonNull.field('getAllIsPublishedProjects', {
-			type: 'Project',
+		t.field('getAllIsPublishedProjects', {
+			type: nonNull(list(nonNull('Project'))),
 			resolve: async (_, __, ctx) => {
 				return ctx.prisma.project.findMany({
 					where: {
@@ -63,11 +71,11 @@ export const ProjectQuery = extendType({
 			},
 		});
 		t.nonNull.field('getProjectsById', {
-			type: 'Project',
+			type: nonNull('Project'),
 			args: {
 				projectId: nonNull(stringArg()),
 			},
-			resolve: async (root, args, ctx) => {
+			resolve: async (_, args, ctx) => {
 				await ctx.prisma.project.update({
 					where: {
 						id: args.projectId,
@@ -93,10 +101,10 @@ export const ProjectMutation = extendType({
 	type: 'Mutation',
 	definition: t => {
 		t.field('addProject', {
-			type: 'Project',
+			type: nonNull('Project'),
 			args: {
 				title: nonNull(stringArg()),
-				description: nonNull(stringArg()),
+				description: nullable(stringArg()),
 				demoUrl: nonNull(stringArg()),
 				repoUrl: nonNull(stringArg()),
 				imageUrl: nonNull(stringArg()),
@@ -120,14 +128,14 @@ export const ProjectMutation = extendType({
 			},
 		});
 		t.field('updateProjectById', {
-			type: 'Project',
+			type: nonNull('Project'),
 			args: {
 				title: stringArg(),
 				description: stringArg(),
 				demoUrl: stringArg(),
 				repoUrl: stringArg(),
 				imageUrl: stringArg(),
-				projectId: nonNull(stringArg()),
+				projectId: stringArg(),
 			},
 			resolve: (_, args, ctx) => {
 				return ctx.prisma.project.update({
@@ -145,7 +153,7 @@ export const ProjectMutation = extendType({
 			},
 		});
 		t.nonNull.field('deleteProjectById', {
-			type: 'Project',
+			type: nonNull('Project'),
 			args: {
 				projectId: nonNull(stringArg()),
 			},
@@ -158,9 +166,9 @@ export const ProjectMutation = extendType({
 			},
 		});
 		t.nonNull.field('changeIsPublish', {
-			type: 'Project',
+			type: nonNull('Project'),
 			args: {
-				isPublished: booleanArg(),
+				isPublished: nonNull(booleanArg()),
 				projectId: nonNull(stringArg()),
 			},
 			resolve: (_, args, ctx) => {

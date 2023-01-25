@@ -8,22 +8,22 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 scalar DateTime
 
 type Mutation {
-  addProject(demoUrl: String!, description: String!, imageUrl: String!, repoUrl: String!, title: String!, userId: String!): Project
-  addUser(email: String!, name: String!): User
-  changeIsPublish(isPublished: Boolean, projectId: String!): Project!
-  deletUserById(userId: String!): User
+  addProject(demoUrl: String!, description: String, imageUrl: String!, repoUrl: String!, title: String!, userId: String!): Project!
+  addUser(email: String!, name: String!): User!
+  changeIsPublish(isPublished: Boolean!, projectId: String!): Project!
   deleteProjectById(projectId: String!): Project!
-  updateProjectById(demoUrl: String, description: String, imageUrl: String, projectId: String!, repoUrl: String, title: String): Project
-  updateUserById(email: String, name: String, userId: String!): User
+  deleteUserById(userId: String!): User!
+  updateProjectById(demoUrl: String, description: String, imageUrl: String, projectId: String, repoUrl: String, title: String): Project!
+  updateUserById(email: String, name: String, userId: String!): User!
 }
 
 type Project {
-  createdAt: DateTime
+  createdAt: DateTime!
   description: String
-  id: String
-  isPublished: String
-  title: String
-  updatedAt: DateTime
+  id: String!
+  isPublished: String!
+  title: String!
+  updatedAt: DateTime!
   user: User
   viewed: Int!
 }
@@ -37,8 +37,8 @@ type Query {
 }
 
 type User {
-  email: String
-  id: String
-  name: String
-  projects: [Project]
+  email: String!
+  id: String!
+  name: String!
+  projects: [Project!]!
 }

@@ -1,13 +1,13 @@
-import { objectType, extendType, nonNull, stringArg } from 'nexus';
+import { objectType, extendType, nonNull, stringArg, list } from 'nexus';
 
 export const User = objectType({
 	name: 'User',
 	definition: t => {
-		t.string('id');
-		t.string('name');
-		t.string('email');
-		t.nullable.list.field('projects', {
-			type: 'Project',
+		t.nonNull.string('id');
+		t.nonNull.string('name');
+		t.nonNull.string('email');
+		t.nonNull.field('projects', {
+			type: nonNull(list(nonNull('Project'))),
 			resolve: (root, __, ctx) => {
 				root;
 				return ctx.prisma.user
@@ -25,8 +25,8 @@ export const User = objectType({
 export const UserQuery = extendType({
 	type: 'Query',
 	definition: t => {
-		t.nonNull.list.nonNull.field('allUsers', {
-			type: 'User',
+		t.field('allUsers', {
+			type: nonNull(list(nonNull('User'))),
 			resolve: (_, __, ctx) => {
 				return ctx.prisma.user.findMany();
 			},
@@ -38,7 +38,7 @@ export const UserMutation = extendType({
 	type: 'Mutation',
 	definition: t => {
 		t.field('addUser', {
-			type: 'User',
+			type: nonNull('User'),
 			args: {
 				name: nonNull(stringArg()),
 				email: nonNull(stringArg()),
@@ -53,7 +53,7 @@ export const UserMutation = extendType({
 			},
 		});
 		t.field('updateUserById', {
-			type: 'User',
+			type: nonNull('User'),
 			args: {
 				name: stringArg(),
 				email: stringArg(),
@@ -71,8 +71,8 @@ export const UserMutation = extendType({
 				});
 			},
 		});
-		t.field('deletUserById', {
-			type: 'User',
+		t.field('deleteUserById', {
+			type: nonNull('User'),
 			args: {
 				userId: nonNull(stringArg()),
 			},
