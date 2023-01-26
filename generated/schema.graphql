@@ -9,36 +9,38 @@ scalar DateTime
 
 type Mutation {
   addProject(demoUrl: String!, description: String, imageUrl: String!, repoUrl: String!, title: String!, userId: String!): Project!
-  addUser(email: String!, name: String!): User!
   changeIsPublish(isPublished: Boolean!, projectId: String!): Project!
   deleteProjectById(projectId: String!): Project!
-  deleteUserById(userId: String!): User!
-  updateProjectById(demoUrl: String, description: String, imageUrl: String, projectId: String, repoUrl: String, title: String): Project!
-  updateUserById(email: String, name: String, userId: String!): User!
+  updateProjectById(demoUrl: String, description: String, imageUrl: String, isPublished: Boolean, projectId: String!, repoUrl: String, title: String): Project!
 }
 
+"""This is the project model"""
 type Project {
-  createdAt: DateTime!
+  createdAt: DateTime
+  demoUrl: String
   description: String
-  id: String!
-  isPublished: String!
-  title: String!
-  updatedAt: DateTime!
+  id: ID!
+  imageUrl: String
+  isPublished: Boolean
+  repoUrl: String
+  title: String
+  updatedAt: DateTime
   user: User
-  viewed: Int!
+  viewed: Int
 }
 
 type Query {
-  allUsers: [User!]!
-  getAllIsPublishedProjects: [Project!]!
   getAllProjects: [Project!]!
-  getAllProjectsByUserId(userId: String!): [Project!]!
-  getProjectsById(projectId: String!): Project!
+  getAllProjectsFromUser(userId: String!): [User!]!
+  getAllPublishedProjects: [Project!]!
+  getAllUsers: [User!]!
+  getProjectById(projectId: String!): Project!
 }
 
+"""This is the user model"""
 type User {
-  email: String!
-  id: String!
-  name: String!
+  email: String
+  id: ID!
+  name: String
   projects: [Project!]!
 }
