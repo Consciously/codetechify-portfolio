@@ -1,27 +1,12 @@
-import { faker } from '@faker-js/faker';
+import { projects, users } from '../lib/projectDataGenerator';
 import { prisma } from '../lib/prisma';
 
 const main = async () => {
-	const projects = Array.from({ length: 10 }, (_, i) => ({
-		title: faker.lorem.sentence(),
-		description: faker.lorem.paragraph(),
-		demoUrl: faker.internet.url(),
-		repoUrl: faker.internet.url(),
-		imageUrl: faker.image.imageUrl(),
-	}));
-
-	const persons = Array.from({ length: 10 }, (_, i) => ({
-		name: `${faker.name.firstName()} ${faker.name.lastName()}`,
-		email: `${faker.name.firstName().charAt(0).toLowerCase()}${faker.name
-			.lastName()
-			.toLowerCase()}@gmail.com`,
-	}));
-
 	await prisma.project.deleteMany();
 	await prisma.user.deleteMany();
 
 	await prisma.project.createMany({ data: projects });
-	await prisma.user.createMany({ data: persons });
+	await prisma.user.createMany({ data: users });
 
 	const createdProjectsArray = await prisma.project.findMany({
 		select: {
@@ -35,19 +20,44 @@ const main = async () => {
 		},
 	});
 
+	// for (let i = 0; i < createdProjectsArray.length; i++) {
+	// 	await prisma.project.update({
+	// 		where: {
+	// 			id: createdProjectsArray[i].id,
+	// 		},
+	// 		data: {
+	// 			user: {
+	// 				connect: {
+	// 					id: createdPersonsArray[i].id,
+	// 				},
+	// 			},
+	// 		},
+	// 	});
+	// }
+
 	for (let i = 0; i < createdProjectsArray.length; i++) {
-		await prisma.project.update({
-			where: {
-				id: createdProjectsArray[i].id,
-			},
-			data: {
-				user: {
-					connect: {
-						id: createdPersonsArray[i].id,
+		const randomIndex = Math.floor(Math.random() * createdPersonsArray.length); // generates a random index between 0 and the number of users
+		const randomCount = Math.floor(Math.random() * 4) + 1; // generates a random number between 1 and 4
+		for (let j = 0; j < randomCount; j++) {
+			if (
+				i + j < createdProjectsArray.length &&
+				randomIndex < createdPersonsArray.length
+			) {
+				await prisma.project.update({
+					where: {
+						id: createdProjectsArray[i + j].id,
 					},
-				},
-			},
-		});
+					data: {
+						user: {
+							connect: {
+								id: createdPersonsArray[randomIndex].id,
+							},
+						},
+					},
+				});
+			}
+		}
+		i += randomCount - 1;
 	}
 };
 

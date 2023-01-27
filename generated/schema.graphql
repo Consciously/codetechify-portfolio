@@ -9,9 +9,12 @@ scalar DateTime
 
 type Mutation {
   addProject(demoUrl: String!, description: String, imageUrl: String!, repoUrl: String!, title: String!, userId: String!): Project!
+  addUser(email: String!, name: String!): User!
   changeIsPublish(isPublished: Boolean!, projectId: String!): Project!
   deleteProjectById(projectId: String!): Project!
+  deleteUserById(userId: String!): User!
   updateProjectById(demoUrl: String, description: String, imageUrl: String, isPublished: Boolean, projectId: String!, repoUrl: String, title: String): Project!
+  updateUserById(email: String, name: String, userId: String!): User!
 }
 
 """This is the project model"""
@@ -23,6 +26,7 @@ type Project {
   imageUrl: String
   isPublished: Boolean
   repoUrl: String
+  slug: String
   title: String
   updatedAt: DateTime
   user: User

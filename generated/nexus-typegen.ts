@@ -53,6 +53,7 @@ export interface NexusGenObjects {
     imageUrl?: string | null; // String
     isPublished?: boolean | null; // Boolean
     repoUrl?: string | null; // String
+    slug?: string | null; // String
     title?: string | null; // String
     updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
     viewed?: number | null; // Int
@@ -78,9 +79,12 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 export interface NexusGenFieldTypes {
   Mutation: { // field return type
     addProject: NexusGenRootTypes['Project']; // Project!
+    addUser: NexusGenRootTypes['User']; // User!
     changeIsPublish: NexusGenRootTypes['Project']; // Project!
     deleteProjectById: NexusGenRootTypes['Project']; // Project!
+    deleteUserById: NexusGenRootTypes['User']; // User!
     updateProjectById: NexusGenRootTypes['Project']; // Project!
+    updateUserById: NexusGenRootTypes['User']; // User!
   }
   Project: { // field return type
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
@@ -90,6 +94,7 @@ export interface NexusGenFieldTypes {
     imageUrl: string | null; // String
     isPublished: boolean | null; // Boolean
     repoUrl: string | null; // String
+    slug: string | null; // String
     title: string | null; // String
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
     user: NexusGenRootTypes['User'] | null; // User
@@ -113,9 +118,12 @@ export interface NexusGenFieldTypes {
 export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
     addProject: 'Project'
+    addUser: 'User'
     changeIsPublish: 'Project'
     deleteProjectById: 'Project'
+    deleteUserById: 'User'
     updateProjectById: 'Project'
+    updateUserById: 'User'
   }
   Project: { // field return type name
     createdAt: 'DateTime'
@@ -125,6 +133,7 @@ export interface NexusGenFieldTypeNames {
     imageUrl: 'String'
     isPublished: 'Boolean'
     repoUrl: 'String'
+    slug: 'String'
     title: 'String'
     updatedAt: 'DateTime'
     user: 'User'
@@ -155,12 +164,19 @@ export interface NexusGenArgTypes {
       title: string; // String!
       userId: string; // String!
     }
+    addUser: { // args
+      email: string; // String!
+      name: string; // String!
+    }
     changeIsPublish: { // args
       isPublished: boolean; // Boolean!
       projectId: string; // String!
     }
     deleteProjectById: { // args
       projectId: string; // String!
+    }
+    deleteUserById: { // args
+      userId: string; // String!
     }
     updateProjectById: { // args
       demoUrl?: string | null; // String
@@ -170,6 +186,11 @@ export interface NexusGenArgTypes {
       projectId: string; // String!
       repoUrl?: string | null; // String
       title?: string | null; // String
+    }
+    updateUserById: { // args
+      email?: string | null; // String
+      name?: string | null; // String
+      userId: string; // String!
     }
   }
   Query: {

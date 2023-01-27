@@ -14,6 +14,7 @@ export const ProjectType = objectType({
 	definition: t => {
 		t.field(Project.id);
 		t.field(Project.title);
+		t.field(Project.slug);
 		t.field(Project.description);
 		t.field(Project.demoUrl);
 		t.field(Project.repoUrl);
