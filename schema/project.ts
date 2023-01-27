@@ -1,66 +1,43 @@
+import { Project } from 'nexus-prisma';
 import {
 	objectType,
 	extendType,
 	nonNull,
 	stringArg,
-	booleanArg,
-	list,
 	nullable,
+	booleanArg,
 } from 'nexus';
 
-export const Project = objectType({
-	name: 'Project',
+export const ProjectType = objectType({
+	name: Project.$name,
+	description: Project.$description,
 	definition: t => {
-		t.nonNull.string('id');
-		t.nonNull.string('title');
-		t.nullable.string('description');
-		t.nonNull.string('isPublished');
-		t.nonNull.date('createdAt');
-		t.nonNull.date('updatedAt');
-		t.nonNull.int('viewed');
-		t.field('user', {
-			type: 'User',
-			resolve: (root, __, ctx) => {
-				return ctx.prisma.project
-					.findUnique({
-						where: {
-							id: String(root.id),
-						},
-					})
-					.user();
-			},
-		});
+		t.field(Project.id);
+		t.field(Project.title);
+		t.field(Project.description);
+		t.field(Project.demoUrl);
+		t.field(Project.repoUrl);
+		t.field(Project.imageUrl);
+		t.field(Project.isPublished);
+		t.field(Project.viewed);
+		t.field(Project.createdAt);
+		t.field(Project.updatedAt);
+		t.field(Project.user);
 	},
 });
 
-export const ProjectQuery = extendType({
+export const ProjectQueryType = extendType({
 	type: 'Query',
 	definition: t => {
-		t.field('getAllProjects', {
-			type: nonNull(list(nonNull('Project'))),
+		t.nonNull.list.nonNull.field('getAllProjects', {
+			type: 'Project',
 			resolve: (_, __, ctx) => {
 				return ctx.prisma.project.findMany();
 			},
 		});
-		t.field('getAllProjectsByUserId', {
-			type: nonNull(list(nonNull('Project'))),
-			args: {
-				userId: nonNull(stringArg()),
-			},
-			resolve: (_, args, ctx) => {
-				return ctx.prisma.project.findMany({
-					where: {
-						user: {
-							id: args.userId,
-						},
-					},
-					take: 1,
-				});
-			},
-		});
-		t.field('getAllIsPublishedProjects', {
-			type: nonNull(list(nonNull('Project'))),
-			resolve: async (_, __, ctx) => {
+		t.nonNull.list.nonNull.field('getAllPublishedProjects', {
+			type: 'Project',
+			resolve: (_, __, ctx) => {
 				return ctx.prisma.project.findMany({
 					where: {
 						isPublished: {
@@ -70,8 +47,8 @@ export const ProjectQuery = extendType({
 				});
 			},
 		});
-		t.nonNull.field('getProjectsById', {
-			type: nonNull('Project'),
+		t.nonNull.field('getProjectById', {
+			type: 'Project',
 			args: {
 				projectId: nonNull(stringArg()),
 			},
@@ -87,7 +64,7 @@ export const ProjectQuery = extendType({
 					},
 				});
 
-				return ctx.prisma.project.findUnique({
+				return ctx.prisma.project.findUniqueOrThrow({
 					where: {
 						id: args.projectId,
 					},
@@ -100,8 +77,8 @@ export const ProjectQuery = extendType({
 export const ProjectMutation = extendType({
 	type: 'Mutation',
 	definition: t => {
-		t.field('addProject', {
-			type: nonNull('Project'),
+		t.nonNull.field('addProject', {
+			type: 'Project',
 			args: {
 				title: nonNull(stringArg()),
 				description: nullable(stringArg()),
@@ -127,15 +104,16 @@ export const ProjectMutation = extendType({
 				});
 			},
 		});
-		t.field('updateProjectById', {
-			type: nonNull('Project'),
+		t.nonNull.field('updateProjectById', {
+			type: 'Project',
 			args: {
 				title: stringArg(),
 				description: stringArg(),
 				demoUrl: stringArg(),
 				repoUrl: stringArg(),
 				imageUrl: stringArg(),
-				projectId: stringArg(),
+				isPublished: booleanArg(),
+				projectId: nonNull(stringArg()),
 			},
 			resolve: (_, args, ctx) => {
 				return ctx.prisma.project.update({
@@ -148,12 +126,13 @@ export const ProjectMutation = extendType({
 						demoUrl: args.demoUrl,
 						repoUrl: args.repoUrl,
 						imageUrl: args.imageUrl,
+						isPublished: args.isPublished,
 					},
 				});
 			},
 		});
 		t.nonNull.field('deleteProjectById', {
-			type: nonNull('Project'),
+			type: 'Project',
 			args: {
 				projectId: nonNull(stringArg()),
 			},
@@ -166,7 +145,7 @@ export const ProjectMutation = extendType({
 			},
 		});
 		t.nonNull.field('changeIsPublish', {
-			type: nonNull('Project'),
+			type: 'Project',
 			args: {
 				isPublished: nonNull(booleanArg()),
 				projectId: nonNull(stringArg()),

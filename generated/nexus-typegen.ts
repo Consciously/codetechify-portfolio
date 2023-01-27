@@ -46,19 +46,22 @@ export interface NexusGenScalars {
 export interface NexusGenObjects {
   Mutation: {};
   Project: { // root type
-    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    demoUrl?: string | null; // String
     description?: string | null; // String
-    id: string; // String!
-    isPublished: string; // String!
-    title: string; // String!
-    updatedAt: NexusGenScalars['DateTime']; // DateTime!
-    viewed: number; // Int!
+    id: string; // ID!
+    imageUrl?: string | null; // String
+    isPublished?: boolean | null; // Boolean
+    repoUrl?: string | null; // String
+    title?: string | null; // String
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    viewed?: number | null; // Int
   }
   Query: {};
   User: { // root type
-    email: string; // String!
-    id: string; // String!
-    name: string; // String!
+    email?: string | null; // String
+    id: string; // ID!
+    name?: string | null; // String
   }
 }
 
@@ -75,34 +78,34 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 export interface NexusGenFieldTypes {
   Mutation: { // field return type
     addProject: NexusGenRootTypes['Project']; // Project!
-    addUser: NexusGenRootTypes['User']; // User!
     changeIsPublish: NexusGenRootTypes['Project']; // Project!
     deleteProjectById: NexusGenRootTypes['Project']; // Project!
-    deleteUserById: NexusGenRootTypes['User']; // User!
     updateProjectById: NexusGenRootTypes['Project']; // Project!
-    updateUserById: NexusGenRootTypes['User']; // User!
   }
   Project: { // field return type
-    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    demoUrl: string | null; // String
     description: string | null; // String
-    id: string; // String!
-    isPublished: string; // String!
-    title: string; // String!
-    updatedAt: NexusGenScalars['DateTime']; // DateTime!
+    id: string; // ID!
+    imageUrl: string | null; // String
+    isPublished: boolean | null; // Boolean
+    repoUrl: string | null; // String
+    title: string | null; // String
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
     user: NexusGenRootTypes['User'] | null; // User
-    viewed: number; // Int!
+    viewed: number | null; // Int
   }
   Query: { // field return type
-    allUsers: NexusGenRootTypes['User'][]; // [User!]!
-    getAllIsPublishedProjects: NexusGenRootTypes['Project'][]; // [Project!]!
     getAllProjects: NexusGenRootTypes['Project'][]; // [Project!]!
-    getAllProjectsByUserId: NexusGenRootTypes['Project'][]; // [Project!]!
-    getProjectsById: NexusGenRootTypes['Project']; // Project!
+    getAllProjectsFromUser: NexusGenRootTypes['User'][]; // [User!]!
+    getAllPublishedProjects: NexusGenRootTypes['Project'][]; // [Project!]!
+    getAllUsers: NexusGenRootTypes['User'][]; // [User!]!
+    getProjectById: NexusGenRootTypes['Project']; // Project!
   }
   User: { // field return type
-    email: string; // String!
-    id: string; // String!
-    name: string; // String!
+    email: string | null; // String
+    id: string; // ID!
+    name: string | null; // String
     projects: NexusGenRootTypes['Project'][]; // [Project!]!
   }
 }
@@ -110,33 +113,33 @@ export interface NexusGenFieldTypes {
 export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
     addProject: 'Project'
-    addUser: 'User'
     changeIsPublish: 'Project'
     deleteProjectById: 'Project'
-    deleteUserById: 'User'
     updateProjectById: 'Project'
-    updateUserById: 'User'
   }
   Project: { // field return type name
     createdAt: 'DateTime'
+    demoUrl: 'String'
     description: 'String'
-    id: 'String'
-    isPublished: 'String'
+    id: 'ID'
+    imageUrl: 'String'
+    isPublished: 'Boolean'
+    repoUrl: 'String'
     title: 'String'
     updatedAt: 'DateTime'
     user: 'User'
     viewed: 'Int'
   }
   Query: { // field return type name
-    allUsers: 'User'
-    getAllIsPublishedProjects: 'Project'
     getAllProjects: 'Project'
-    getAllProjectsByUserId: 'Project'
-    getProjectsById: 'Project'
+    getAllProjectsFromUser: 'User'
+    getAllPublishedProjects: 'Project'
+    getAllUsers: 'User'
+    getProjectById: 'Project'
   }
   User: { // field return type name
     email: 'String'
-    id: 'String'
+    id: 'ID'
     name: 'String'
     projects: 'Project'
   }
@@ -152,10 +155,6 @@ export interface NexusGenArgTypes {
       title: string; // String!
       userId: string; // String!
     }
-    addUser: { // args
-      email: string; // String!
-      name: string; // String!
-    }
     changeIsPublish: { // args
       isPublished: boolean; // Boolean!
       projectId: string; // String!
@@ -163,28 +162,21 @@ export interface NexusGenArgTypes {
     deleteProjectById: { // args
       projectId: string; // String!
     }
-    deleteUserById: { // args
-      userId: string; // String!
-    }
     updateProjectById: { // args
       demoUrl?: string | null; // String
       description?: string | null; // String
       imageUrl?: string | null; // String
-      projectId?: string | null; // String
+      isPublished?: boolean | null; // Boolean
+      projectId: string; // String!
       repoUrl?: string | null; // String
       title?: string | null; // String
     }
-    updateUserById: { // args
-      email?: string | null; // String
-      name?: string | null; // String
-      userId: string; // String!
-    }
   }
   Query: {
-    getAllProjectsByUserId: { // args
+    getAllProjectsFromUser: { // args
       userId: string; // String!
     }
-    getProjectsById: { // args
+    getProjectById: { // args
       projectId: string; // String!
     }
   }
