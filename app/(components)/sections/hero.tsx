@@ -1,8 +1,8 @@
 import Image from 'next/image';
-import ContainerUI from '../(components)/UI/containerUI';
-import profilePic from '../../public/images/me.jpg';
+import ContainerUI from '../UI/containerUI';
+import profilePic from '../../../public/images/me.jpg';
 
-const HeroPage = () => {
+const Hero = () => {
 	return (
 		<section className='hero bg-gray-800 text-white text-center py-16 h-full'>
 			<ContainerUI isHero={true}>
@@ -35,4 +35,4 @@ const HeroPage = () => {
 	);
 };
 
-export default HeroPage;
+export default Hero;

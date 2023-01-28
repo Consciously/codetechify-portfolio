@@ -1,15 +1,15 @@
-import HeroPage from './hero/page';
-import ServicesPage from './services/page';
-import SkillsPage from './skills/page';
-import ProjectsPage from './projects/page';
+import Hero from './(components)/sections/hero';
+import Services from './(components)/sections/services';
+import Skills from './(components)/sections/skills';
+import ProjectsExcerpt from './(components)/sections/projectsExcerpt';
 
 const HomePage = () => {
 	return (
 		<>
-			<HeroPage />
-			<ServicesPage />
-			<SkillsPage />
-			<ProjectsPage />
+			<Hero />
+			<Services />
+			<Skills />
+			<ProjectsExcerpt />
 		</>
 	);
 };

@@ -1,5 +1,4 @@
 import { FaCode, FaFileCode, FaCheckSquare, FaGlobe } from 'react-icons/fa';
-import { text } from 'stream/consumers';
 import jsonData from '../../data/jsonData.json';
 import ServicesItem from './servicesItem';
 
