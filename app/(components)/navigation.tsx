@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
-import Link from 'next/link';
 import jsonData from '../../data/jsonData.json';
+import Button from './UI/button';
 
 const Navigation = () => {
 	const { navigation } = jsonData;
@@ -11,12 +11,9 @@ const Navigation = () => {
 				return (
 					<Fragment key={idx}>
 						<div className='relative px-4 py-2 w-full md:w-36'>
-							<Link
-								href={`${navElem.linkUrl}`}
-								className='bg-orange-600 rounded-lg px-4 py-2 block text-white text-center text-sm uppercase'
-							>
-								{`${navElem.linkName}`}
-							</Link>
+							<Button navigateTo='/' variant='primary' small={true}>
+								Admin
+							</Button>
 						</div>
 					</Fragment>
 				);

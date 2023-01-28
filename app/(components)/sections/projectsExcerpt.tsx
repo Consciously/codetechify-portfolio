@@ -1,4 +1,5 @@
 import ProjectsList from '../projectsList';
+import Button from '../UI/button';
 import ContainerUI from '../UI/containerUI';
 import FlexColUI from '../UI/flexColUI';
 import FlexItemsUI from '../UI/flexItemsUI';
@@ -14,6 +15,9 @@ const ProjectsExcerpt = () => {
 						<ProjectsList isExcerpt={true} />
 					</FlexItemsUI>
 				</FlexColUI>
+				<Button navigateTo='/projects' variant='primary' small={false}>
+					Go to projects
+				</Button>
 			</ContainerUI>
 		</section>
 	);

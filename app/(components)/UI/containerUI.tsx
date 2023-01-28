@@ -6,8 +6,8 @@ type Props = {
 const ContainerUI = ({ children, isHero }: Props) => {
 	return (
 		<div
-			className={`container mx-auto ${
-				isHero && 'h-full flex flex-col justify-center items-center'
+			className={`container mx-auto flex flex-col justify-center items-center ${
+				isHero && 'h-full'
 			}`}
 		>
 			{children}

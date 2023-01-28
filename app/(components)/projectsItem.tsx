@@ -1,9 +1,19 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import type { Project } from './projectsList';
+import Button from './UI/button';
 
 type Props = {
-	project: Project;
+	project: {
+		id: string;
+		title: string;
+		demoUrl: string;
+		repoUrl: string;
+		imageUrl: string;
+		slug: string;
+		user: {
+			name: string;
+		};
+	};
 };
 
 const ProjectsItem = ({ project }: Props) => {
@@ -20,18 +30,12 @@ const ProjectsItem = ({ project }: Props) => {
 			<p className='text-sm mb-2 text-white'>{user.name}</p>
 			<Image src={imageUrl} width={640} height={480} alt={title} />
 			<div className='flex flex-row w-full justify-between mt-4'>
-				<a
-					href={`${demoUrl}`}
-					className='bg-orange-500 rounded-lg px-4 py-2 block text-white text-center'
-				>
+				<Button navigateTo={demoUrl} variant='primary' small extern>
 					Live Demo
-				</a>
-				<a
-					href={`${repoUrl}`}
-					className='bg-orange-500 rounded-lg px-4 py-2 block text-white text-center'
-				>
+				</Button>
+				<Button navigateTo={repoUrl} variant='secondary' small inverted extern>
 					Repository
-				</a>
+				</Button>
 			</div>
 		</div>
 	);

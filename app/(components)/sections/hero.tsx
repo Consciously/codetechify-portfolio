@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import ContainerUI from '../UI/containerUI';
 import profilePic from '../../../public/images/me.jpg';
+import Button from '../UI/button';
 
 const Hero = () => {
 	return (
@@ -24,12 +25,9 @@ const Hero = () => {
 					</figure>
 				</div>
 
-				<a
-					href='#'
-					className='bg-orange-600 rounded-lg px-8 py-4 block text-white'
-				>
-					Learn More
-				</a>
+				<Button navigateTo='/' variant='primary'>
+					Contact Me
+				</Button>
 			</ContainerUI>
 		</section>
 	);
