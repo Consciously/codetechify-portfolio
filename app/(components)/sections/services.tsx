@@ -3,11 +3,12 @@ import ContainerUI from '../UI/containerUI';
 import FlexColUI from '../UI/flexColUI';
 import FlexItemsUI from '../UI/flexItemsUI';
 import H2UI from '../UI/h2UI';
+import SectionUI from '../UI/sectionUI';
 
 const Services = () => {
 	return (
-		<section id='services' className='isStick services bg-gray-400 p-4 pb-0'>
-			<ContainerUI isHero={false}>
+		<SectionUI>
+			<ContainerUI>
 				<FlexColUI>
 					<H2UI>My Services</H2UI>
 					<FlexItemsUI hasBorder={false}>
@@ -15,7 +16,7 @@ const Services = () => {
 					</FlexItemsUI>
 				</FlexColUI>
 			</ContainerUI>
-		</section>
+		</SectionUI>
 	);
 };
 

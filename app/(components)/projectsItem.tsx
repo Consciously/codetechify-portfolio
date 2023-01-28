@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import Button from './UI/button';
+import H3UI from './UI/h3UI';
+import CardUI from './UI/cardUI';
 
 type Props = {
 	project: {
@@ -17,15 +19,12 @@ type Props = {
 };
 
 const ProjectsItem = ({ project }: Props) => {
-	const { id, title, demoUrl, repoUrl, imageUrl, slug, user } = project;
+	const { title, demoUrl, repoUrl, imageUrl, slug, user } = project;
 	return (
-		<div
-			key={id}
-			className='bg-gray-700 rounded-lg shadow-md shadow-gray-700 flex flex-col basis-full md:basis-1/2 lg:basis-1/3 xl:basis-1/4 items-center p-4 m-4 transition-colors duration-300 ease-out h-fit'
-		>
-			<h3 className='text-2xl font-medium text-center text-white uppercase mb-2 hover:text-orange-600'>
+		<CardUI>
+			<H3UI>
 				<Link href={`/projects/${slug}`}>{title}</Link>
-			</h3>
+			</H3UI>
 
 			<p className='text-sm mb-2 text-white'>{user.name}</p>
 			<Image src={imageUrl} width={640} height={480} alt={title} />
@@ -37,7 +36,7 @@ const ProjectsItem = ({ project }: Props) => {
 					Repository
 				</Button>
 			</div>
-		</div>
+		</CardUI>
 	);
 };
 

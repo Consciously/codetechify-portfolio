@@ -1,6 +1,6 @@
 type Props = {
-	children: React.ReactNode;
-	hasBorder: boolean;
+	children?: React.ReactNode;
+	hasBorder?: boolean;
 };
 
 const FlexItemsUI = ({ children, hasBorder }: Props) => {

@@ -3,7 +3,7 @@ const Footer = () => {
 		<footer className='isStick bg-gray-800 text-white py-8'>
 			<div className='container mx-auto flex flex-col md:flex-row justify-between items-center'>
 				<div className='w-full md:w-1/3 text-center md:text-left'>
-					<h3 className='text-lg font-medium mb-2'>Contechify</h3>
+					<h3 className='text-lg font-medium mb-2'>codetechify.com</h3>
 					<p className='text-sm'>
 						Latest technology solutions for your business
 					</p>
