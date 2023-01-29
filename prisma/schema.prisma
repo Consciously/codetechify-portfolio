@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["filteredRelationCount"]
 }
 
@@ -18,21 +18,21 @@ datasource db {
 
 /// This is the project model
 model Project {
-  id          String    @id @default(uuid())
-  title       String?   @db.VarChar(255)
-  slug        String?
-  description String?   @db.VarChar(1024)
-  demoUrl     String?   @unique
-  repoUrl     String?   @unique
-  imageUrl    String?   @db.VarChar(255)
-  isPublished Boolean?  @default(false)
-  viewed      Int?      @default(0)
-  createdAt   DateTime? @default(now())
-  updatedAt   DateTime? @updatedAt
-  user        User?     @relation(fields: [userId], references: [id])
-  userId      String?
+  id           String       @id @default(uuid())
+  title        String?      @db.VarChar(255)
+  slug         String?
+  description  String?      @db.VarChar(1024)
+  demoUrl      String?      @unique
+  repoUrl      String?      @unique
+  imageUrl     String?      @db.VarChar(255)
+  isPublished  Boolean?     @default(false)
+  viewed       Int?         @default(0)
+  createdAt    DateTime?    @default(now())
+  updatedAt    DateTime?    @updatedAt
+  user         User?        @relation(fields: [userId], references: [id])
+  userId       String?
+  technologies Technology[]
 
-  // technologies String[]
   @@index([userId])
 }
 
@@ -41,5 +41,12 @@ model User {
   id       String    @id @default(uuid())
   name     String?   @db.VarChar(255)
   email    String?   @unique @db.VarChar(255)
+  projects Project[]
+}
+
+/// This is the technologies model
+model Technology {
+  id       String    @id @default(uuid())
+  name     String?
   projects Project[]
 }

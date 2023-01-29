@@ -24,6 +24,7 @@ export const ProjectType = objectType({
 		t.field(Project.createdAt);
 		t.field(Project.updatedAt);
 		t.field(Project.user);
+		t.field(Project.technologies);
 	},
 });
 
