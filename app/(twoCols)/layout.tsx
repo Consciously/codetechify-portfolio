@@ -12,31 +12,29 @@ type Props = {
 const TwoColsLayout = ({ children }: Props) => {
 	return (
 		<div className='flex flex-col md:flex-row'>
-			<div className='flex-auto w-full lg:w-1/3  xl:w-1/5 bg-gray-400'>
+			<div className='flex-auto basis-full md:basis-1/3 lg:basis-1/4  xl:basis-1/6 bg-gray-400'>
 				<ContainerUI>
 					<FlexColUI>
-						<FlexItemsUI>
-							<div>
-								<Button navigateTo='/' variant='secondary' small>
-									Go Back
-								</Button>
-							</div>
+						<div className='mt-8'>
+							<Button navigateTo='/' variant='secondary' small>
+								Go Back
+							</Button>
+						</div>
+						<FlexItemsUI isSidebar>
+							<CardUI>
+								<H3UI>Technologies</H3UI>
+							</CardUI>
 
 							<CardUI>
-								<div className='lg:w-32 h:w-32 xl:w-64 xl:h-64'>
-									<H3UI>Technologies</H3UI>
-								</div>
-							</CardUI>
-							<CardUI>
-								<div className='lg:w-32 lg:h-32 xl:w-64 xl:h-64'>
-									<H3UI>Date</H3UI>
-								</div>
+								<H3UI>Date</H3UI>
 							</CardUI>
 						</FlexItemsUI>
 					</FlexColUI>
 				</ContainerUI>
 			</div>
-			<div className='flex-auto w-full lg:w-2/3  xl:w-4/5'>{children}</div>
+			<div className='flex-auto basis-full md:basis-2/3 lg:basis-3/4  xl:basis-5/6'>
+				{children}
+			</div>
 		</div>
 	);
 };

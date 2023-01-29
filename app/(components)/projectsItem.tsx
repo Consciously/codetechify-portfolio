@@ -28,7 +28,7 @@ const ProjectsItem = ({ project }: Props) => {
 
 			<p className='text-sm mb-2 text-white'>{user.name}</p>
 			<Image src={imageUrl} width={640} height={480} alt={title} />
-			<div className='flex flex-row w-full justify-between mt-4'>
+			<div className='flex flex-col w-48 justify-between mt-16'>
 				<Button navigateTo={demoUrl} variant='primary' small extern>
 					Live Demo
 				</Button>

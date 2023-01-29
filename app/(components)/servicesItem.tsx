@@ -1,4 +1,5 @@
 import type { IconType } from 'react-icons';
+import CardUI from './UI/cardUI';
 
 type Props = {
 	title: string;
@@ -8,7 +9,7 @@ type Props = {
 
 const ServicesItem = ({ title, Icon, text }: Props) => {
 	return (
-		<div className='bg-gray-700 hover:bg-orange-600 rounded-lg shadow-md shadow-gray-700 flex flex-col basis-full md:basis-1/2 lg:basis-1/3 xl:basis-1/4 items-center p-4 m-4 transition-colors duration-300 ease-out'>
+		<CardUI>
 			<h3 className='text-2xl font-medium text-center text-white uppercase mb-2'>
 				{title}
 			</h3>
@@ -16,7 +17,7 @@ const ServicesItem = ({ title, Icon, text }: Props) => {
 				<Icon className='text-orange-600 text-center text-4xl' />
 			</figure>
 			<p className='text-sm lg:text-lg text-center text-white'>{text}</p>
-		</div>
+		</CardUI>
 	);
 };
 

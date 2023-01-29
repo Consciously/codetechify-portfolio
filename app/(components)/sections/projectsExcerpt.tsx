@@ -15,9 +15,11 @@ const ProjectsExcerpt = () => {
 					<FlexItemsUI hasBorder={false}>
 						<ProjectsList isExcerpt={true} />
 					</FlexItemsUI>
-					<Button navigateTo='/projects' variant='primary' small={false}>
-						Go to projects
-					</Button>
+					<div className='flex flex-col w-48 justify-between mt-16'>
+						<Button navigateTo='/projects' variant='primary'>
+							Go to project
+						</Button>
+					</div>
 				</FlexColUI>
 			</ContainerUI>
 		</SectionUI>
