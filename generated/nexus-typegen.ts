@@ -59,6 +59,10 @@ export interface NexusGenObjects {
     viewed?: number | null; // Int
   }
   Query: {};
+  Technology: { // root type
+    id: string; // ID!
+    name?: string | null; // String
+  }
   User: { // root type
     email?: string | null; // String
     id: string; // ID!
@@ -79,6 +83,7 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 export interface NexusGenFieldTypes {
   Mutation: { // field return type
     addProject: NexusGenRootTypes['Project']; // Project!
+    addTechnology: NexusGenRootTypes['Technology']; // Technology!
     addUser: NexusGenRootTypes['User']; // User!
     changeIsPublish: NexusGenRootTypes['Project']; // Project!
     deleteProjectById: NexusGenRootTypes['Project']; // Project!
@@ -95,6 +100,7 @@ export interface NexusGenFieldTypes {
     isPublished: boolean | null; // Boolean
     repoUrl: string | null; // String
     slug: string | null; // String
+    technologies: NexusGenRootTypes['Technology'][]; // [Technology!]!
     title: string | null; // String
     updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
     user: NexusGenRootTypes['User'] | null; // User
@@ -104,8 +110,15 @@ export interface NexusGenFieldTypes {
     getAllProjects: NexusGenRootTypes['Project'][]; // [Project!]!
     getAllProjectsFromUser: NexusGenRootTypes['User'][]; // [User!]!
     getAllPublishedProjects: NexusGenRootTypes['Project'][]; // [Project!]!
+    getAllTechnologies: NexusGenRootTypes['Technology'][]; // [Technology!]!
     getAllUsers: NexusGenRootTypes['User'][]; // [User!]!
     getProjectById: NexusGenRootTypes['Project']; // Project!
+    getTechnologyById: NexusGenRootTypes['Technology']; // Technology!
+  }
+  Technology: { // field return type
+    id: string; // ID!
+    name: string | null; // String
+    projects: NexusGenRootTypes['Project'][]; // [Project!]!
   }
   User: { // field return type
     email: string | null; // String
@@ -118,6 +131,7 @@ export interface NexusGenFieldTypes {
 export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
     addProject: 'Project'
+    addTechnology: 'Technology'
     addUser: 'User'
     changeIsPublish: 'Project'
     deleteProjectById: 'Project'
@@ -134,6 +148,7 @@ export interface NexusGenFieldTypeNames {
     isPublished: 'Boolean'
     repoUrl: 'String'
     slug: 'String'
+    technologies: 'Technology'
     title: 'String'
     updatedAt: 'DateTime'
     user: 'User'
@@ -143,8 +158,15 @@ export interface NexusGenFieldTypeNames {
     getAllProjects: 'Project'
     getAllProjectsFromUser: 'User'
     getAllPublishedProjects: 'Project'
+    getAllTechnologies: 'Technology'
     getAllUsers: 'User'
     getProjectById: 'Project'
+    getTechnologyById: 'Technology'
+  }
+  Technology: { // field return type name
+    id: 'ID'
+    name: 'String'
+    projects: 'Project'
   }
   User: { // field return type name
     email: 'String'
@@ -161,8 +183,12 @@ export interface NexusGenArgTypes {
       description?: string | null; // String
       imageUrl: string; // String!
       repoUrl: string; // String!
+      technologyIds: string[]; // [String!]!
       title: string; // String!
       userId: string; // String!
+    }
+    addTechnology: { // args
+      technologyName: string; // String!
     }
     addUser: { // args
       email: string; // String!
@@ -199,6 +225,9 @@ export interface NexusGenArgTypes {
     }
     getProjectById: { // args
       projectId: string; // String!
+    }
+    getTechnologyById: { // args
+      technologyId: string; // String!
     }
   }
 }

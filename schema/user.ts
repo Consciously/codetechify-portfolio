@@ -37,7 +37,7 @@ export const UserQueryType = extendType({
 	},
 });
 
-export const UserMutation = extendType({
+export const UserMutationType = extendType({
 	type: 'Mutation',
 	definition: t => {
 		t.field('addUser', {
