@@ -8,7 +8,8 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 scalar DateTime
 
 type Mutation {
-  addProject(demoUrl: String!, description: String, imageUrl: String!, repoUrl: String!, title: String!, userId: String!): Project!
+  addProject(demoUrl: String!, description: String, imageUrl: String!, repoUrl: String!, technologyIds: [String!]!, title: String!, userId: String!): Project!
+  addTechnology(technologyName: String!): Technology!
   addUser(email: String!, name: String!): User!
   changeIsPublish(isPublished: Boolean!, projectId: String!): Project!
   deleteProjectById(projectId: String!): Project!
@@ -27,6 +28,7 @@ type Project {
   isPublished: Boolean
   repoUrl: String
   slug: String
+  technologies: [Technology!]!
   title: String
   updatedAt: DateTime
   user: User
@@ -37,8 +39,17 @@ type Query {
   getAllProjects: [Project!]!
   getAllProjectsFromUser(userId: String!): [User!]!
   getAllPublishedProjects: [Project!]!
+  getAllTechnologies: [Technology!]!
   getAllUsers: [User!]!
   getProjectById(projectId: String!): Project!
+  getTechnologyById(technologyId: String!): Technology!
+}
+
+"""This is the technologies model"""
+type Technology {
+  id: ID!
+  name: String
+  projects: [Project!]!
 }
 
 """This is the user model"""

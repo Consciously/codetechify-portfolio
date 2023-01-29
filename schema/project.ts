@@ -6,6 +6,7 @@ import {
 	stringArg,
 	nullable,
 	booleanArg,
+	list,
 } from 'nexus';
 
 export const ProjectType = objectType({
@@ -76,7 +77,7 @@ export const ProjectQueryType = extendType({
 	},
 });
 
-export const ProjectMutation = extendType({
+export const ProjectMutationType = extendType({
 	type: 'Mutation',
 	definition: t => {
 		t.nonNull.field('addProject', {
@@ -88,8 +89,9 @@ export const ProjectMutation = extendType({
 				repoUrl: nonNull(stringArg()),
 				imageUrl: nonNull(stringArg()),
 				userId: nonNull(stringArg()),
+				technologyIds: nonNull(list(nonNull(stringArg()))),
 			},
-			resolve: (_, args, ctx) => {
+			resolve: async (_, args, ctx) => {
 				return ctx.prisma.project.create({
 					data: {
 						title: args.title,
@@ -101,6 +103,9 @@ export const ProjectMutation = extendType({
 							connect: {
 								id: args.userId,
 							},
+						},
+						technologies: {
+							connect: args.technologyIds.map(id => ({ id })),
 						},
 					},
 				});
