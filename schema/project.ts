@@ -1,4 +1,4 @@
-import { Project } from 'nexus-prisma';
+import { Project, Technology } from 'nexus-prisma';
 import {
 	objectType,
 	extendType,
@@ -89,7 +89,7 @@ export const ProjectMutationType = extendType({
 				repoUrl: nonNull(stringArg()),
 				imageUrl: nonNull(stringArg()),
 				userId: nonNull(stringArg()),
-				technologyIds: nonNull(list(nonNull(stringArg()))),
+				technologyNames: nonNull(list(nonNull(stringArg()))),
 			},
 			resolve: async (_, args, ctx) => {
 				return ctx.prisma.project.create({
@@ -105,7 +105,7 @@ export const ProjectMutationType = extendType({
 							},
 						},
 						technologies: {
-							connect: args.technologyIds.map(id => ({ id })),
+							connect: args.technologyNames.map(name => ({ name })),
 						},
 					},
 				});
@@ -114,15 +114,55 @@ export const ProjectMutationType = extendType({
 		t.nonNull.field('updateProjectById', {
 			type: 'Project',
 			args: {
-				title: stringArg(),
-				description: stringArg(),
-				demoUrl: stringArg(),
-				repoUrl: stringArg(),
-				imageUrl: stringArg(),
-				isPublished: booleanArg(),
+				title: nullable(stringArg()),
+				description: nullable(stringArg()),
+				demoUrl: nullable(stringArg()),
+				repoUrl: nullable(stringArg()),
+				imageUrl: nullable(stringArg()),
+				isPublished: nullable(booleanArg()),
 				projectId: nonNull(stringArg()),
+				checkTechnology: nonNull(stringArg()),
+				technologyName: nullable(stringArg()),
 			},
-			resolve: (_, args, ctx) => {
+			resolve: async (_, args, ctx) => {
+				const project = await ctx.prisma.project.findUniqueOrThrow({
+					where: {
+						id: args.projectId,
+					},
+					include: {
+						technologies: true,
+					},
+				});
+
+				const technologies = await ctx.prisma.technology.findMany();
+
+				const projectTechnologies = project.technologies;
+
+				const projectTechnologyIndex = projectTechnologies.findIndex(
+					technology => technology.name === args.checkTechnology,
+				);
+
+				if (projectTechnologyIndex !== -1) {
+					const projectTechnology = projectTechnologies[projectTechnologyIndex];
+
+					if (typeof args.technologyName !== 'undefined') {
+						projectTechnology.name = args.technologyName;
+					}
+				} else {
+					const technology = technologies.find(
+						technology => technology.name === args.technologyName,
+					);
+
+					const technologyId = technology?.id;
+
+					if (typeof projectTechnologies !== 'undefined') {
+						projectTechnologies.push({
+							id: technologyId,
+							name: args.technologyName,
+						});
+					}
+				}
+
 				return ctx.prisma.project.update({
 					where: {
 						id: args.projectId,
@@ -134,6 +174,9 @@ export const ProjectMutationType = extendType({
 						repoUrl: args.repoUrl,
 						imageUrl: args.imageUrl,
 						isPublished: args.isPublished,
+						technologies: {
+							set: projectTechnologies.map(({ name }) => ({ name })),
+						},
 					},
 				});
 			},
