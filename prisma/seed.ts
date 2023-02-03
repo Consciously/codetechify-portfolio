@@ -4,6 +4,7 @@ import { prisma } from '../lib/prisma';
 const main = async () => {
 	await prisma.project.deleteMany();
 	await prisma.user.deleteMany();
+	await prisma.technology.deleteMany();
 
 	await prisma.project.createMany({ data: projects });
 	await prisma.user.createMany({ data: users });
@@ -19,21 +20,6 @@ const main = async () => {
 			id: true,
 		},
 	});
-
-	// for (let i = 0; i < createdProjectsArray.length; i++) {
-	// 	await prisma.project.update({
-	// 		where: {
-	// 			id: createdProjectsArray[i].id,
-	// 		},
-	// 		data: {
-	// 			user: {
-	// 				connect: {
-	// 					id: createdPersonsArray[i].id,
-	// 				},
-	// 			},
-	// 		},
-	// 	});
-	// }
 
 	for (let i = 0; i < createdProjectsArray.length; i++) {
 		const randomIndex = Math.floor(Math.random() * createdPersonsArray.length); // generates a random index between 0 and the number of users

@@ -183,7 +183,7 @@ export interface NexusGenArgTypes {
       description?: string | null; // String
       imageUrl: string; // String!
       repoUrl: string; // String!
-      technologyIds: string[]; // [String!]!
+      technologyNames: string[]; // [String!]!
       title: string; // String!
       userId: string; // String!
     }
@@ -205,12 +205,14 @@ export interface NexusGenArgTypes {
       userId: string; // String!
     }
     updateProjectById: { // args
+      checkTechnology: string; // String!
       demoUrl?: string | null; // String
       description?: string | null; // String
       imageUrl?: string | null; // String
       isPublished?: boolean | null; // Boolean
       projectId: string; // String!
       repoUrl?: string | null; // String
+      technologyName?: string | null; // String
       title?: string | null; // String
     }
     updateUserById: { // args

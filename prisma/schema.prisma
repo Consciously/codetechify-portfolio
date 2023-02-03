@@ -47,6 +47,6 @@ model User {
 /// This is the technologies model
 model Technology {
   id       String    @id @default(uuid())
-  name     String?
+  name     String?   @unique
   projects Project[]
 }
