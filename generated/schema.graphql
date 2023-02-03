@@ -8,13 +8,13 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 scalar DateTime
 
 type Mutation {
-  addProject(demoUrl: String!, description: String, imageUrl: String!, repoUrl: String!, technologyIds: [String!]!, title: String!, userId: String!): Project!
+  addProject(demoUrl: String!, description: String, imageUrl: String!, repoUrl: String!, technologyNames: [String!]!, title: String!, userId: String!): Project!
   addTechnology(technologyName: String!): Technology!
   addUser(email: String!, name: String!): User!
   changeIsPublish(isPublished: Boolean!, projectId: String!): Project!
   deleteProjectById(projectId: String!): Project!
   deleteUserById(userId: String!): User!
-  updateProjectById(demoUrl: String, description: String, imageUrl: String, isPublished: Boolean, projectId: String!, repoUrl: String, title: String): Project!
+  updateProjectById(checkTechnology: String!, demoUrl: String, description: String, imageUrl: String, isPublished: Boolean, projectId: String!, repoUrl: String, technologyName: String, title: String): Project!
   updateUserById(email: String, name: String, userId: String!): User!
 }
 
