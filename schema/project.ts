@@ -142,27 +142,30 @@ export const ProjectMutationType = extendType({
 					technology => technology.name === args.checkTechnology,
 				);
 
-				if (projectTechnologyIndex !== -1) {
-					const projectTechnology = projectTechnologies[projectTechnologyIndex];
-
-					if (typeof args.technologyName !== 'undefined') {
+				if (
+					(typeof projectTechnologies !== 'undefined' ||
+						typeof projectTechnologies !== null) &&
+					typeof args.technologyName !== 'undefined'
+				) {
+					if (projectTechnologyIndex !== -1) {
+						const projectTechnology =
+							projectTechnologies[projectTechnologyIndex];
 						projectTechnology.name = args.technologyName;
-					}
-				} else {
-					const technology = technologies.find(
-						technology => technology.name === args.technologyName,
-					);
+					} else {
+						const technology = technologies.find(
+							technology =>
+								args.technologyName && technology.name === args.technologyName,
+						);
 
-					const technologyId = technology?.id;
-
-					if (typeof projectTechnologies !== 'undefined') {
-						projectTechnologies.push({
-							id: technologyId,
-							name: args.technologyName,
-						});
+						if (typeof technology !== 'undefined') {
+							const technologyId = technology.id;
+							projectTechnologies.push({
+								id: technologyId,
+								name: args.technologyName,
+							});
+						}
 					}
 				}
-
 				return ctx.prisma.project.update({
 					where: {
 						id: args.projectId,
@@ -175,7 +178,11 @@ export const ProjectMutationType = extendType({
 						imageUrl: args.imageUrl,
 						isPublished: args.isPublished,
 						technologies: {
-							set: projectTechnologies.map(({ name }) => ({ name })),
+							set:
+								projectTechnologies &&
+								projectTechnologies.map(({ name }: any) => ({
+									name,
+								})),
 						},
 					},
 				});
