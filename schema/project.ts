@@ -1,4 +1,4 @@
-import { Project } from 'nexus-prisma';
+import { Project, Technology } from 'nexus-prisma';
 import {
 	objectType,
 	extendType,
